@@ -15,32 +15,32 @@ An end-to-end test automation framework built with Playwright and TypeScript, ta
 
 ```
 qa-playwright-project/
-├── playwright.config.ts          # Browser projects, baseURL, auth configuration
-├── .env                          # Environment variables (credentials, base URL)
-├── tsconfig.json
-├── package.json
+├── playwright.config.ts          # Defines browsers, baseURL, auth state, and project setup
+├── .env                          # Environment variables: site URL and user credentials
+├── tsconfig.json                 # TypeScript compiler settings
+├── package.json                  # Project dependencies and npm scripts
 └── tests/
-    ├── auth.setup.ts             # Runs once to save the login session
-    ├── fixtures.ts               # Shared test setup
+    ├── auth.setup.ts             # Logs in once and saves the session to avoid repeated logins
+    ├── fixtures.ts               # Re-exports test and expect from Playwright
     ├── data/
-    │   ├── users.ts              # User credentials loaded from .env
-    │   └── products.ts           # Product names and prices
-    ├── pages/                    # Page Object Models
-    │   ├── LoginPage.ts
-    │   ├── InventoryPage.ts
-    │   ├── CartPage.ts
-    │   └── CheckoutPage.ts
+    │   ├── users.ts              # All user credentials read from .env with fallback defaults
+    │   └── products.ts           # Product names and prices used across test files
+    ├── pages/                    # Page Object Models — one class per page
+    │   ├── LoginPage.ts          # Locators and actions for the login page
+    │   ├── InventoryPage.ts      # Locators and actions for the products listing page
+    │   ├── CartPage.ts           # Locators and actions for the shopping cart page
+    │   └── CheckoutPage.ts       # Locators and actions for all three checkout steps
     ├── login/
-    │   └── login.spec.ts
+    │   └── login.spec.ts         # Tests: valid login, locked out, invalid credentials, empty fields
     ├── cart/
-    │   ├── cart.spec.ts
-    │   └── remove-from-cart.spec.ts
+    │   ├── cart.spec.ts          # Tests: add one item, add multiple items, button state change
+    │   └── remove-from-cart.spec.ts  # Tests: remove one item, remove from inventory, remove multiple
     ├── checkout/
-    │   └── checkout.spec.ts
+    │   └── checkout.spec.ts      # Tests: full checkout flow, form validation, cancel behavior
     ├── sort/
-    │   └── sort.spec.ts
+    │   └── sort.spec.ts          # Tests: sort A-Z, Z-A, price low-high, price high-low
     └── users/
-        └── users.spec.ts
+        └── users.spec.ts         # Tests: behavior and known bugs for each user type
 ```
 
 ---
